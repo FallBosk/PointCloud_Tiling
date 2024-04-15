@@ -52,4 +52,4 @@ Feel free to help out!
 
 ## License
 
-This project is licensed under the terms of the European Union Public License 1.2 (EUPL-1.2).
+This project is licensed under the terms of the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007.
