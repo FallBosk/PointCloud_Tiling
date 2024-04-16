@@ -1,4 +1,4 @@
-# PointCloudTiling, GPL-3.0 license
+# PointCloud_Tiling, GPL-3.0 license
 
 """ 
 Mathematical utility methods - Module (Python)

@@ -1,4 +1,6 @@
 #!/usr/bin/python
+
+# PointCloud_Tiling, GPL-3.0 license
 # command: python subsample.py --in_folder '..' [--out_folder '..']
 
 # Helper script to allow importing from parent folder.

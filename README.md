@@ -1,6 +1,6 @@
 # PCT - Point Cloud Tiling
 
-This repository provides code to cut large-scale pointclouds into smaller usable tiles.
+This repository provides code to cut large-scale pointclouds into smaller usable tiles. It handles large files by iterating through points in manageable chunks.
 
 ## Folder Structure
 
@@ -34,12 +34,12 @@ There are two ways for using this repository. Option 1 is simply running the com
 
 ```bash
 cd scripts
-sh run.sh
+python pipeline.py --in_folder '..' --out_folder '..'
 ```
 
 **Option 2: using Jupyter notebooks**
 
-Check out the [notebooks](notebooks) that demonstrate how the tools can be used. **Note:** To produce an output, only notebook 0 - 3 is required to run. Other notebooks are optional.
+Check out the [notebooks](notebooks) that demonstrate how the tools can be used.
  
 
 ## Contributing

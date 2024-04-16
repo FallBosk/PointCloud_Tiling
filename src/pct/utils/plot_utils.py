@@ -1,4 +1,4 @@
-# PointCloudTiling, GPL-3.0 license
+# PointCloud_Tiling, GPL-3.0 license
 
 """ 
 Plot utility methods - Module (Python)

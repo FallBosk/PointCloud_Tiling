@@ -1,4 +1,4 @@
-# PointCloudTiling, GPL-3.0 license
+# PointCloud_Tiling, GPL-3.0 license
 
 """ 
 Laspy utility methods - Module (Python)
@@ -50,6 +50,25 @@ def get_tilecodes_from_folder(las_folder, las_prefix='', extension='.laz'):
 
 
 def tile_las_file(in_file, out_folder, prefix='', tile_size=50, points_per_iter=40_000_000):
+    """Processes a single LAS file to generate multiple tiled LAS files based on specified tile dimensions.
+
+    This function opens a LAS file and partitions its point cloud data into smaller, geospatially defined
+    tiles. It saves each tile as a new LAS file in the specified output folder. The tiling is based on 
+    a grid defined by `tile_size`, with the number of points processed per iteration controlled by
+    `points_per_iter`. This allows handling of large point clouds efficiently.
+
+    Args:
+        in_file: The path to the input LAS file.
+        out_folder: The directory where the tiled LAS files will be saved.
+        prefix: An optional prefix for the output file names. Defaults to an empty string.
+        tile_size: The size of each spatial tile, in the same units as the point coordinates. Defaults to 50.
+        points_per_iter: The maximum number of points to process in each iteration. Defaults to 40,000,000.
+
+    Raises:
+        FileNotFoundError: If the input LAS file does not exist.
+        Exception: If there is an error during the reading or writing of LAS files.
+
+    """
     
     if not os.path.isdir(out_folder):
         pathlib.Path(out_folder).mkdir(parents=True, exist_ok=True)
@@ -86,7 +105,26 @@ def tile_las_file(in_file, out_folder, prefix='', tile_size=50, points_per_iter=
   
                                     
 def tile_las_folder(in_folder, out_folder, out_prefix='filtered_', glob_pattern='**/*.laz',
-                    points_per_iter=25_000_000, tile_size=50):
+                    points_per_iter=40_000_000, tile_size=50):
+    """Tiles all LAS files within a specified directory based on the given tiling parameters.
+
+    This function scans a directory for LAS files matching a specific pattern, then processes each file
+    to generate smaller, tiled LAS files. Each output file contains a subset of points from the original,
+    organized into tiles of specified size. It handles large files by iterating through points in manageable
+    chunks.
+
+    Args:
+        in_folder: The path to the input directory containing LAS files.
+        out_folder: The path to the output directory where tiled LAS files will be saved.
+        out_prefix: A prefix to append to the names of the output files. Defaults to 'filtered_'.
+        glob_pattern: The pattern used to find LAS files in the input directory. Defaults to '**/*.laz'.
+        points_per_iter: The number of points to process in each iteration. Defaults to 40,000,000.
+        tile_size: The size of each tile, in units consistent with the LAS file coordinates. Defaults to 50.
+
+    Raises:
+        Exception: If an error occurs during the tiling process for any file.
+
+    """
     
     # Create out_folder
     if not os.path.isdir(out_folder):
@@ -104,6 +142,21 @@ def tile_las_folder(in_folder, out_folder, out_prefix='filtered_', glob_pattern=
 
 
 def subsample_las_file(in_file, out_file, grid_size=0.01):
+    """Subsamples a LAS file to reduce the number of points based on a specified grid size.
+
+    This function reads a LAS file, extracts the points, and applies a subsampling process using an octree structure. The subsampling aims to reduce the point cloud density by selecting the nearest point to the cell center within each grid cell defined by the specified grid size. The output is a new LAS file with the subsampled point cloud.
+
+    Args:
+        in_file: The path to the input LAS file that will be subsampled.
+        out_file: The path where the subsampled LAS file will be saved.
+        grid_size: The size of the grid cell used in the subsampling process. Defaults to 0.01.
+
+    Raises:
+        AssertionError: If there is a mismatch between the points array and the points in the point cloud after creation.
+        Exception: If there are issues during the reading, processing, or writing of the LAS files.
+
+    """
+        
     las = laspy.read(in_file)
 
     xs = np.asarray(las.x - las.header.x_min).astype(pycc.PointCoordinateType)
@@ -143,15 +196,7 @@ def subsample_las_file(in_file, out_file, grid_size=0.01):
 
 def subsample_las_folder(in_folder, out_folder=None, out_prefix='filtered_', grid_size=0.01, resume=False, 
                          min_points=2_000_000):
-    """Function to subsample las folder.
-
-    Args:
-        in_folder (str): path to input folder to subsample.
-        out_folder (str): path to out folder.
-        prefix (str, optional): optional prefix for output files. Defaults to ''.
-        min_distance (int, optional): defines the subsample size. Defaults to 0.03.
-        resume (bool, optional): bool to skip already processed files in out_folder.
-    """
+    
     
     file_types = ('.LAS', '.las', '.LAZ', '.laz') # valid pointcloud file types
     

@@ -1,5 +1,7 @@
 #!/usr/bin/python
-# command: python preprocess_dataset.py --in_folder '..' --out_folder '..'
+
+# PointCloud_Tiling, GPL-3.0 license
+# command: python pipeline.py --in_folder '..' --out_folder '..'
 
 # Helper script to allow importing from parent folder.
 import set_path  # noqa: F401
