@@ -32,7 +32,7 @@ This code has been tested with `Python >= 3.9` on `MacOS`. To use this code in d
     python -m pip install -r requirements.txt
     ```
 
-3. **Finally**, install `cccorelib` and `pycc` into the `my_env` environment by following the [instructions on their GitHub page](https://github.com/tmontaigu/CloudCompare-PythonPlugin/blob/master/docs/building.rst#building-as-independent-wheels). Please note, these two packages are not available on the Python Package Index (PyPi).
+3. **Finally** (if you would like to use the subsampling feature), install `cccorelib` and `pycc` into the `my_env` environment by following the [instructions on their GitHub page](https://github.com/tmontaigu/CloudCompare-PythonPlugin/blob/master/docs/building.rst#building-as-independent-wheels). Please note, these two packages are not available on the Python Package Index (PyPi).
 
     **Note:** installing these packages is known to cause issues. For help and questions please consult the [issue list](https://github.com/tmontaigu/CloudCompare-PythonPlugin/issues) on the original repository. Building these packages requires Qt
 
